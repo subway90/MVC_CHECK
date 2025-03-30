@@ -1,0 +1,39 @@
+:root {
+    --primary-color: #0D6EFD;
+}
+
+body {
+    background-image: url('/assets/file/system/bg.jpg');
+    background-size: cover;
+    background-position: top;
+    background-repeat: no-repeat;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #11111150;
+}
+
+.container {
+    height: 100vh;
+}
+
+.form-check-input {
+    display: none;
+}
+
+.btn-choose {
+    border: 1px dashed var(--primary-color);
+    color: var(--primary-color);
+    border-radius: 8px;
+}
+
+.form-check-input:checked+.form-check-label {
+    border-style: solid;
+    color: white;
+    background-color: var(--primary-color);
+}
