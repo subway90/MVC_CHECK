@@ -4,11 +4,19 @@
 
 
 # [HANDLE]
-if (isset($_GET['type']) && in_array($_GET['type'], ['agency', 'personal'])) {
+if (isset($_POST['check'])) {
+    // Input
+
+    // Validate
+
+    // Query
+
+    // Result
     $data = [
-        'type_choose' => $_GET['type'],
+        'type_choose' => $_POST['typeCheck'],
     ];
-    view('user', 'Nhập số điện thoại', 'check_number', $data);
+    // Render
+    view('user', 'Kết quả', 'result', $data);
 }
 
 
@@ -18,4 +26,4 @@ $data = [
 ];
 
 # [RENDER]
-view('user', 'Kiểm tra phòng', 'choose_type', $data);
+view('user', 'Kiểm tra phòng', 'check', $data);
