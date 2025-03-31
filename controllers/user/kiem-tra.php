@@ -73,6 +73,12 @@ if (isset($_POST['check'])) {
                     $return[] = $row;
             }
 
+            // empty
+            if (!$return) {
+                toast_create('danger', 'Số điện thoại kiểm tra không tìm thấy !');
+                route('/');
+            }
+
             // Result
             $data = [
                 'phone_check' => $phone,
@@ -88,11 +94,5 @@ if (isset($_POST['check'])) {
 
 }
 
-
-# [DATA]
-$data = [
-
-];
-
 # [RENDER]
-view('user', 'Kiểm tra phòng', 'check', $data);
+view('user', 'Kiểm tra phòng', 'check', null);
