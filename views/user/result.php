@@ -1,14 +1,12 @@
 <div class="container d-flex justify-content-center align-items-center">
     <div class="card col-4 shadow p-5">
         <h5 class="fw-bold mb-3 text-primary">Kết quả kiểm tra</h5>
+        <div class="my-1">
+            SĐT Check : <strong>0<?= $phone_check ?></strong>
+        </div>
         <?php if ($return): ?>
-            <div class="my-1">
-                <div class="">
-                    SĐT Check : <strong>0<?= $return[0]['phone_check'] ?></strong>
-                </div>
-                <div class="">
-                    Số lượng người : <strong><?= count($return) ?></strong>
-                </div>
+            <div class="">
+                Số lượng người : <strong><?= count($return) ?></strong>
             </div>
             <div class="small my-2">
                 <?php foreach ($return as $row):
@@ -32,7 +30,7 @@
                 <?php endforeach ?>
             </div>
         <?php else: ?>
-            <div class="text-center text-muted fst-italic">
+            <div class="text-center text-muted fst-italic my-3">
                 Không có kết quả
             </div>
         <?php endif ?>

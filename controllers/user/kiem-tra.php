@@ -54,12 +54,6 @@ if (isset($_POST['check'])) {
 
             }
 
-            // filter
-            foreach ($_SESSION['data'] as $row) {
-                if ($phone == $row['phone_check'])
-                    $return[] = $row;
-            }
-
             // detail
             if (isset($_POST['detail']) && $_POST['detail']) {
                 // input
@@ -72,15 +66,23 @@ if (isset($_POST['check'])) {
                 //render
                 view('user', 'Chi tiết', 'detail', ['detail' => $_SESSION['data'][$order]]);
             }
-        }
 
-        // Result
-        $data = [
-            'return' => $return,
-        ];
+            // filter
+            foreach ($_SESSION['data'] as $row) {
+                if ($phone == $row['phone_check'])
+                    $return[] = $row;
+            }
 
-        // Render
-        view('user', 'Kết quả', 'result', $data);
+            // Result
+            $data = [
+                'phone_check' => $phone,
+                'return' => $return,
+            ];
+
+            // Render
+            view('user', 'Kết quả', 'result', $data);
+        } else
+            toast_create('danger', 'Hệ thống dữ liệu không tồn tại ! Liên hệ ADMIN để hỗ trợ !');
     }
 
 

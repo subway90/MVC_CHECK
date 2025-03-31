@@ -15,5 +15,7 @@
     <title><?= $title ?? WEB_NAME ?></title>
 </head>
 
+<?= toast_show() // Hiện thị toast nếu có ?>
+
 <body>
     <div class="overlay"></div>
