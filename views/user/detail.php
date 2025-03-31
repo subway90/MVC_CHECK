@@ -16,7 +16,7 @@
                         Số điện thoại
                     </div>
                     <div class="">
-                        <?= $detail['phone'] ?>
+                        0<?= $detail['phone'] ?>
                     </div>
                 </div>
                 <div class="d-flex justify-content-between align-items-between mb-2">
