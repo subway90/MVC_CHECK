@@ -275,7 +275,7 @@ function test($input)
  * 
  * @param string $case Tên route muốn chuyển đến
  */
-function route($case)
+function route($case = null)
 {
     header('Location:' . URL . $case);
     exit;

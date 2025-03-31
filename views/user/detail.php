@@ -43,6 +43,16 @@
                         <?= $detail['restaurant'] ?>
                     </div>
                 </div>
+                <?php if ($detail['check_in']): ?>
+                    <div class="d-flex justify-content-between align-items-between mb-2">
+                        <div class="fw-bold">
+                            Thời gian check-in
+                        </div>
+                        <div class="">
+                            <?= $detail['check_in']->format('d/m/Y H:i:s') ?>
+                        </div>
+                    </div>
+                <?php endif ?>
             </div>
         </div>
         <a href="/" class="btn btn-primary mt-3">

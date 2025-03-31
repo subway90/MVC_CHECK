@@ -30,7 +30,7 @@ if (isset($_POST['check'])) {
         $service = new Google_Service_Sheets($client);
 
         // Lấy dữ liệu từ bảng
-        $response = $service->spreadsheets_values->get(SHEET_ID, 'Data!B2:G');
+        $response = $service->spreadsheets_values->get(SHEET_ID, 'Data!B2:H');
         $result = $response->getValues();
 
         if ($result) {
@@ -40,37 +40,41 @@ if (isset($_POST['check'])) {
                 $phone_check = $row[0];
                 // Kiểm tra
                 if (!$phone_check)
-                    $phone_check = $_SESSION['data'][$i - 1]['phone_check'];
+                    $phone_check = $_SESSION['data'][$i - 1]['phone_check']; // gán giá trị sđt của vị trí trước nó
+
+                // format thời gian check-in
+                if (isset($row[6]))
+                    $row[6] = DateTime::createFromFormat('d/m/Y H:i:s', $row[6]);
+                else
+                    $row[6] = null;
 
                 $_SESSION['data'][] = [
-                    'order' => $i,
+                    'order' => $i + 2, // vị trí bắt đầu trong data sheet là dòng 2
                     'phone_check' => $phone_check,
                     'full_name' => $row[1],
                     'phone' => $row[2],
                     'area' => $row[3],
                     'room' => $row[4],
                     'restaurant' => $row[5],
+                    'check_in' => $row[6],
                 ];
 
             }
 
-            // detail
+            # [detail]
             if (isset($_POST['detail']) && $_POST['detail']) {
                 // input
                 $order = clear_input($_POST['detail']);
 
-                // giảm 1 (vì đã cộng bên input value -> tránh lỗi null value)
-                --$order;
-
                 //validate
                 if (empty($_SESSION['data'][$order]))
-                    route('/');
+                    route();
 
                 //render
                 view('user', 'Chi tiết', 'detail', ['detail' => $_SESSION['data'][$order]]);
             }
 
-            // filter
+            # [list]
             foreach ($_SESSION['data'] as $row) {
                 if ($phone == $row['phone_check'])
                     $return[] = $row;
@@ -79,7 +83,7 @@ if (isset($_POST['check'])) {
             // empty
             if (!$return) {
                 toast_create('danger', 'Số điện thoại kiểm tra không tìm thấy !');
-                route('/');
+                route();
             }
 
             // Result
@@ -94,6 +98,20 @@ if (isset($_POST['check'])) {
             toast_create('danger', 'Hệ thống dữ liệu không tồn tại ! Liên hệ ADMIN để hỗ trợ !');
     }
 
+
+}
+
+
+// Nếu vừa mới cập nhật
+if (!empty($_SESSION['update_data'])) {
+    // gán dữ liệu
+    $detail = $_SESSION['update_data'];
+    // huỷ session
+    unset($_SESSION['update_data']);
+    // toast
+    toast_create('success', 'Đã check-in thành công');
+    // Hiển thị view
+    view('user', 'Check-in thành công', 'detail', ['detail' => $detail]);
 
 }
 
