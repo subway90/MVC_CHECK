@@ -18,7 +18,7 @@
                         <div class="text-muted text-end">
                             <form action="" method="post">
                                 <input type="hidden" name="phone" value="<?= $phone_check ?>">
-                                <input type="hidden" name="detail" value="<?= $order ?>">
+                                <input type="hidden" name="detail" value="<?= ++$order ?>">
                                 <button type="submit" name="check" class="btn btn-sm btn-primary fw-semibold px-2 py-1">
                                     <small>Xem chi tiết</small>
                                 </button>

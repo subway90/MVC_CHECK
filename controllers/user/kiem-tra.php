@@ -59,6 +59,9 @@ if (isset($_POST['check'])) {
                 // input
                 $order = clear_input($_POST['detail']);
 
+                // giảm 1 (vì đã cộng bên input value -> tránh lỗi null value)
+                --$order;
+
                 //validate
                 if (empty($_SESSION['data'][$order]))
                     route('/');
