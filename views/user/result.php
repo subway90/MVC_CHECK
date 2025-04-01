@@ -28,7 +28,7 @@
                             </div>
                         <?php else: ?>
                             <div class="text-muted text-end">
-                                <form action="/check-in" method="post">
+                                <form action="" method="post">
                                     <input type="hidden" name="phone" value="<?= $phone_check ?>">
                                     <input type="hidden" name="check_in" value="<?= $order ?>">
                                     <button type="submit" name="check" class="btn btn-sm btn-primary fw-semibold px-2 py-1">

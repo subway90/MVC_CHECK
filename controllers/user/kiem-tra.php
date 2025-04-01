@@ -6,6 +6,7 @@ require 'vendor/autoload.php'; // Tải thư viện Google API
 # [VARIABLE]
 $_SESSION['data'] = [];
 $return = [];
+$bool_detail = false;
 
 # [HANDLE]
 if (isset($_POST['check'])) {
@@ -61,10 +62,76 @@ if (isset($_POST['check'])) {
 
             }
 
-            # [detail]
-            if (isset($_POST['detail']) && $_POST['detail']) {
+            # [check-in]
+            if (isset($_POST['check_in']) && $_POST['check_in']) {
+
                 // input
-                $order = clear_input($_POST['detail']);
+                $order_check_in = clear_input($_POST['check_in']);
+                $phone = clear_input($_POST['phone']);
+
+
+                $order_bool = false;
+                // đúng sđt check
+                if ($phone == $_SESSION['data'][$order_check_in - 2]['phone_check']) {
+
+                    // tạo thời gian cập nhật
+                    $time_update = date('d/m/Y H:i:s');
+
+                    // khởi tạo GG Sheets
+                    $client = new Google_Client();
+                    $client->setApplicationName('Google Sheets API PHP');
+                    $client->setScopes(Google_Service_Sheets::SPREADSHEETS);
+                    $client->setAuthConfig('check-room-455408-fdb296f12ae3.json');
+                    $client->setAccessType('offline');
+
+                    $service = new Google_Service_Sheets($client);
+
+                    // Dữ liệu bạn muốn cập nhật
+                    $values = [
+                        [
+                            $time_update
+                        ],
+                    ];
+
+                    // Phạm vi mà bạn muốn cập nhật
+                    $range = 'Data!H' . $order_check_in;
+
+                    // Tạo đối tượng ValueRange
+                    $body = new Google_Service_Sheets_ValueRange([
+                        'values' => $values
+                    ]);
+
+                    // Cập nhật dữ liệu
+                    $params = [
+                        'valueInputOption' => 'RAW' // Hoặc 'USER_ENTERED'
+                    ];
+
+                    try {
+                        $result = $service->spreadsheets_values->update(SHEET_ID, $range, $body, $params);
+                        // Thành công
+                        toast_create('success', 'Đã check-in thành công');
+                        // Cập nhật thời gian vào session
+                        $_SESSION['data'][$order_check_in - 2]['check_in'] = DateTime::createFromFormat('d/m/Y H:i:s', $time_update);
+                        // bật chế độ detail -> gán order vào
+                        $bool_detail = $order_check_in;
+                    } catch (Exception $e) {
+                        toast_create('danger', 'Hệ thống đang bị lỗi, vui lòng thử lại sau !');
+                        route();
+                    }
+
+                } else {
+                    toast_create('danger', 'Cập nhật thất bại vì có sự thay đổi hoặc không chính xác. Vui lòng thử lại !');
+                    route();
+                }
+            }
+
+            # [detail]
+            if ($bool_detail || isset($_POST['detail']) && $_POST['detail']) {
+                // input
+                if ($bool_detail)
+                    $order = $bool_detail;
+                else
+                    $order = clear_input($_POST['detail']);
 
                 // format // giảm 2 đơn vị
                 $order -= 2;
@@ -78,7 +145,6 @@ if (isset($_POST['check'])) {
                 else
                     $detail = $_SESSION['data'][$order];
 
-                # vị trí check-in (sắp xếp tăng dần theo thời gian)/ tổng số người trong phòng
                 // Lấy số người trong phòng của detail
                 foreach ($_SESSION['data'] as $row) {
                     if ($row['room'] == $detail['room'])
@@ -140,20 +206,6 @@ if (isset($_POST['check'])) {
             toast_create('danger', 'Hệ thống dữ liệu không tồn tại ! Liên hệ ADMIN để hỗ trợ !');
     }
 
-
-}
-
-
-// Nếu vừa mới cập nhật
-if (!empty($_SESSION['update_data'])) {
-    // gán dữ liệu
-    $detail = $_SESSION['update_data'];
-    // huỷ session
-    unset($_SESSION['update_data']);
-    // toast
-    toast_create('success', 'Đã check-in thành công');
-    // Hiển thị view
-    view('user', 'Check-in thành công', 'detail', ['detail' => $detail]);
 
 }
 
