@@ -69,12 +69,51 @@ if (isset($_POST['check'])) {
                 // format // giảm 2 đơn vị
                 $order -= 2;
 
-                //validate
-                if (empty($_SESSION['data'][$order]))
+                // empty
+                if (empty($_SESSION['data'][$order])) {
+                    toast_create('danger', 'Không tìm thấy dữ liệu. Vui lòng thử lại !');
                     route();
+                }
+                // gán dữ liệu
+                else
+                    $detail = $_SESSION['data'][$order];
+
+                # vị trí check-in (sắp xếp tăng dần theo thời gian)/ tổng số người trong phòng
+                // Lấy số người trong phòng của detail
+                foreach ($_SESSION['data'] as $row) {
+                    if ($row['room'] == $detail['room'])
+                        $array_person_in_room[] = $row;
+                }
+
+                // Sắp xếp vị trí theo thời gian tăng dần
+                usort($array_person_in_room, function ($a, $b) {
+                    if ($a['check_in'] === null && $b['check_in'] === null)
+                        return 0; // Nếu cả 2 trống
+                    if ($a['check_in'] === null)
+                        return 1; // Nếu a trống
+                    if ($b['check_in'] === null)
+                        return -1; // Nếu b trống
+                    return $a['check_in'] <=> $b['check_in']; // Cả 2 đều có dữ liệu, tự so sánh và swap
+                });
+
+                // Tìm vị trí trong mảng vừa sort
+                $order_checked = '';
+                foreach ($array_person_in_room as $i => $row) {
+                    if ($row['order'] == $detail['order'])
+                        $order_checked = 'Bạn là người thứ ' . ($i + 1) . ' / ' . count($array_person_in_room) . ' đã check in phòng ' . $detail['room'];
+                    if ($order_checked)
+                        break;
+                }
+
+                //data
+                $data = [
+                    'detail' => $detail,
+                    'order_checked' => $order_checked,
+                ];
+
 
                 //render
-                view('user', 'Chi tiết', 'detail', ['detail' => $_SESSION['data'][$order]]);
+                view('user', 'Chi tiết', 'detail', $data);
             }
 
             # [list]

@@ -52,6 +52,11 @@
                             <?= $detail['check_in']->format('d/m/Y H:i:s') ?>
                         </div>
                     </div>
+                    <div class="d-flex justify-content-between align-items-between mb-2">
+                        <div class="fw-bold">
+                            <?= $order_checked ?>
+                        </div>
+                    </div>
                 <?php endif ?>
             </div>
         </div>
