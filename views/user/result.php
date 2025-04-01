@@ -1,5 +1,5 @@
 <div class="container d-flex justify-content-center align-items-center">
-    <div class="card col-4 shadow p-5">
+    <div class="card col-lg-4 col-12 shadow px-3 px-lg-5 py-5">
         <h5 class="fw-bold mb-3 text-primary">Kết quả kiểm tra</h5>
         <div class="my-1">
             SĐT Check : <strong>0<?= $phone_check ?></strong>
