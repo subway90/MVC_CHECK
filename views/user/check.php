@@ -1,5 +1,5 @@
 <div class="container d-flex justify-content-center align-items-center">
-    <div class="card col-12 col-lg-4 shadow p-5">
+    <div class="card col-12 col-lg-4 shadow px-3 px-lg-5 py-5">
         <h5 class="fw-bold my-3 text-primary">Kiểm tra thông tin phòng</h5>
         <form action="" method="post" class="form">
             <div class="form-floating my-3">

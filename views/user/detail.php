@@ -1,5 +1,5 @@
 <div class="container d-flex justify-content-center align-items-center">
-    <div class="card col-4 shadow p-5">
+    <div class="card col-12 col-lg-4 shadow px-3 px-lg-5 py-5">
         <h5 class="fw-bold mb-3 text-primary">Chi tiết</h5>
         <div class="small my-2">
             <div class="">
