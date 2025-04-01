@@ -2,7 +2,7 @@
     <div class="card col-12 col-md-10 col-lg-4 shadow px-3 px-md-5 py-5">
         <h5 class="fw-bold mb-3 text-primary">Kết quả kiểm tra</h5>
         <div class="my-1">
-            SĐT Check : <strong>0<?= $phone_check ?></strong>
+            SĐT Check : <strong><?= $phone_check ?></strong>
         </div>
         <div class="small my-2">
             <?php foreach ($return as $row):
