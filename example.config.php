@@ -1,12 +1,15 @@
 <?php
 
-const URL = 'https://subway90.vn/';
+const URL = 'https://check.vn/';
 const URL_ADMIN = URL . 'admin/';
 const URL_STORAGE = URL . "assets/file/";
 
-const WEB_NAME = 'SUBWAY90';
-const WEB_LOGO = '';
-const WEB_FAVICON = '';
+const WEB_NAME = 'check.vn';
+const WEB_LOGO = URL_STORAGE . '';
+const WEB_FAVICON = URL_STORAGE . '';
+const WEB_ADDRESS = '';
+const WEB_HOTLINE = '';
+const WEB_EMAIL = '';
 const WEB_DESCRIPTION = '';
 
 const DB_HOST = 'localhost';
@@ -18,8 +21,5 @@ const TOAST_TIME = 3000;
 
 const LIMIT_SIZE_FILE = 4; // đơn vị MB (megabyte)
 
-const PATH_FILE_AVATAR = "assets/file/avatar/";
-const PATH_FILE_MENU = "assets/file/menu/";
-
-const DEFAULT_IMAGE = 'https://img.freepik.com/premium-vector/default-image-icon-vector-missing-picture-page-website-design-mobile-app-no-photo-available_87543-11093.jpg';
-const DEFAULT_AVATAR = 'https://sbcf.fr/wp-content/uploads/2018/03/sbcf-default-avatar.png';
+const SHEET_ID = ''; //ID bảng sheet
+const SHEET_JSON_FILE = '';
