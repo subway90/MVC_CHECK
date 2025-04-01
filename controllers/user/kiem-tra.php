@@ -66,6 +66,9 @@ if (isset($_POST['check'])) {
                 // input
                 $order = clear_input($_POST['detail']);
 
+                // format // giảm 2 đơn vị
+                $order -= 2;
+
                 //validate
                 if (empty($_SESSION['data'][$order]))
                     route();
