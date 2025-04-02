@@ -70,20 +70,20 @@ function auth($param)
  * @param string $page Tên file view cần load
  * @param $data Mảng dữ liệu
  */
-function view($type, $title, $page, $data)
+function view($type_of_role, $title, $page, $data)
 {
-    if ($type != 'admin' && $type != 'user')
-        die(_s_me_error . 'Type khai báo <strong>' . $type . '</strong> không phù hợp trong mảng [user,admin] ' . _e_me_error);
-    if (file_exists('views/' . $type . '/' . $page . '.php')) {
+    if ($type_of_role != 'admin' && $type_of_role != 'user')
+        die(_s_me_error . 'Type khai báo <strong>' . $type_of_role . '</strong> không phù hợp trong mảng [user,admin] ' . _e_me_error);
+    if (file_exists('views/' . $type_of_role . '/' . $page . '.php')) {
         if (!empty($data))
             extract($data);
-        require_once 'models/' . $type . '/header.php';
-        require_once 'views/' . $type . '/layout/header.php';
-        require_once 'views/' . $type . '/' . $page . '.php';
-        require_once 'views/' . $type . '/layout/footer.php';
+        require_once 'models/' . $type_of_role . '/header.php';
+        require_once 'views/' . $type_of_role . '/layout/header.php';
+        require_once 'views/' . $type_of_role . '/' . $page . '.php';
+        require_once 'views/' . $type_of_role . '/layout/footer.php';
         exit;
     } else {
-        die(_s_me_error . 'Trang view <strong>' . $page . '.php</strong> mà bạn khai báo không được tìm thấy tại :<br> <strong>path : views/' . $type . '/' . $page . '.php</strong>' . _e_me_error);
+        die(_s_me_error . 'Trang view <strong>' . $page . '.php</strong> mà bạn khai báo không được tìm thấy tại :<br> <strong>path : views/' . $type_of_role . '/' . $page . '.php</strong>' . _e_me_error);
     }
 }
 
