@@ -207,7 +207,7 @@ if (isset($_POST['check'])) {
             }
 
             // empty
-            if (!$return) {
+            if (empty($return)) {
                 toast_create('danger', 'Số điện thoại kiểm tra không tìm thấy !');
                 route();
             }
