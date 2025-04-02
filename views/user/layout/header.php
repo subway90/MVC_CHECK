@@ -18,4 +18,3 @@
 <?= toast_show() // Hiện thị toast nếu có ?>
 
 <body>
-    <div class="overlay"></div>

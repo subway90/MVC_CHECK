@@ -7,45 +7,6 @@ body {
     background-size: cover;
     background-position: top;
     background-repeat: no-repeat;
-}
-
-.overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: #11111160;
-}
-
-.container {
-    height: 100vh;
-}
-
-.form-check-input {
-    display: none;
-}
-
-.form-check-label {
-    border: 1px dashed var(--primary-color);
-    color: var(--primary-color);
-    border-radius: 8px;
-}
-
-.form-check-input:checked+.form-check-label {
-    border-style: solid;
-    color: white;
-    background-color: var(--primary-color);
-}
-
-.field-phone {
-    opacity: 0; /* Bắt đầu với độ mờ 0 */
-    transition: opacity 0.7s ease, max-height 0.7s ease; /* Thêm transition cho opacity và max-height */
-    max-height: 0; /* Bắt đầu với chiều cao tối đa là 0 */
-    overflow: hidden; /* Ẩn phần nội dung bị tràn */
-}
-
-.field-phone.show {
-    opacity: 1; /* Đặt độ mờ thành 1 khi hiển thị */
-    max-height: 200px; /* Đặt chiều cao tối đa để có thể thấy nội dung */
+    min-height: 100vh !important;
+    display: flex;
 }
