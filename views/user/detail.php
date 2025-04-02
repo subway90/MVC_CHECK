@@ -61,6 +61,15 @@
         </table>
     </div>
 
+    <div style="height: <?= $detail['map'] ? '500px' : '' ?> " class="card col-12 col-md-10 col-lg-5 shadow px-3 px-md-5 py-5 mt-4">
+        <h5 class="fw-bold mb-3 text-primary">Sơ đồ khu vực của bạn</h5>
+        <?php if($detail['map']): ?>
+            <iframe src="<?= str_replace('view?usp=drive_link','preview',$detail['map'][1]) ?>" height="100%" width="100%" allow="autoplay"></iframe>
+        <?php else : ?>
+            <div class="text-center text-muted fw-light">Bản đồ của khu vực này chưa có ! Vui lòng thử lại sau</div>
+        <?php endif ?>
+    </div>
+
     <div class="card col-12 col-md-10 col-lg-5 shadow px-3 px-md-5 py-5 mt-4">
         <h5 class="fw-bold mb-3 text-primary">Timeline chương trình</h5>
         <table class="table tabl-bordered table-hover my-2 small" style="height: 200px; overflow-y : auto">
@@ -75,15 +84,6 @@
             </tr>
             <?php endforeach ?>
         </table>
-    </div>
-
-    <div  style="height: <?= $detail['map'] ? '500px' : '' ?> " class="card col-12 col-md-10 col-lg-5 shadow px-3 px-md-5 py-5 mt-4">
-        <h5 class="fw-bold mb-3 text-primary">Sơ đồ khu vực của bạn</h5>
-        <?php if($detail['map']): ?>
-            <iframe src="<?= str_replace('view?usp=drive_link','preview',$detail['map'][1]) ?>" style="width: 100%; height: calc(100% - 3rem);" allow="autoplay"></iframe>
-        <?php else : ?>
-            <div class="text-center text-muted fw-light">Bản đồ của khu vực này chưa có ! Vui lòng thử lại sau</div>
-        <?php endif ?>
     </div>
 
     <a href="/" class="btn btn-primary col-12 col-md-10 col-lg-5 shadow px-3 my-4">
