@@ -228,4 +228,4 @@ if (isset($_POST['check'])) {
 }
 
 # [RENDER]
-view('user', 'Kiểm tra phòng', 'check', null);
+view('user', null, 'check', null);

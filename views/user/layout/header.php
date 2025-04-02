@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="shortcut icon" href="/assets/file/system/favicon.png" type="image/x-icon">
     <link rel="stylesheet" href="/assets/css/custom.css">
-    <title><?= $title ?? WEB_NAME ?></title>
+    <title><?= WEB_NAME ?><?= $title ? ' | '.$title :  '' ?></title>
 </head>
 
 <?= toast_show() // Hiện thị toast nếu có ?>
