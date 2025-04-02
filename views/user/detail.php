@@ -63,7 +63,7 @@
 
     <?php if(!empty($detail['map']) && isset($detail['map'][1])): ?>
     
-    <div style="height:'500px" class="card col-12 col-md-10 col-lg-5 shadow px-3 px-md-5 py-5 mt-4">
+    <div style="height:500px" class="card col-12 col-md-10 col-lg-5 shadow px-3 px-md-5 py-5 mt-4">
         <h5 class="fw-bold mb-3 text-primary">Sơ đồ khu vực của bạn</h5>
         <iframe src="<?= str_replace('view?usp=drive_link','preview',$detail['map'][1]) ?>" height="100%" width="100%" allow="autoplay"></iframe>
     </div>
