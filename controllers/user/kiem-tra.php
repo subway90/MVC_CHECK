@@ -31,7 +31,7 @@ if (isset($_POST['check'])) {
         $service = new Google_Service_Sheets($client);
 
         // Lấy dữ liệu từ bảng
-        $response = $service->spreadsheets_values->get(SHEET_ID, 'Data!B2:H');
+        $response = $service->spreadsheets_values->get(SHEET_ID, 'Data!B2:I');
         $result = $response->getValues();
 
         if ($result) {
@@ -44,20 +44,21 @@ if (isset($_POST['check'])) {
                     $phone_check = $_SESSION['data'][$i - 1]['phone_check']; // gán giá trị sđt của vị trí trước nó
 
                 // format thời gian check-in
-                if (isset($row[6]))
-                    $row[6] = DateTime::createFromFormat('d/m/Y H:i:s', $row[6]);
+                if (isset($row[7]))
+                    $row[7] = DateTime::createFromFormat('d/m/Y H:i:s', $row[7]);
                 else
-                    $row[6] = null;
+                    $row[7] = null;
 
                 $_SESSION['data'][] = [
                     'order' => $i + 2, // vị trí bắt đầu trong data sheet là dòng 2
                     'phone_check' => $phone_check,
                     'full_name' => $row[1],
-                    'phone' => $row[2],
-                    'area' => $row[3],
-                    'room' => $row[4],
-                    'restaurant' => $row[5],
-                    'check_in' => $row[6],
+                    'type' => $row[2],
+                    'phone' => $row[3],
+                    'area' => $row[4],
+                    'room' => $row[5],
+                    'restaurant' => $row[6],
+                    'check_in' => $row[7],
                 ];
 
             }
