@@ -23,7 +23,7 @@ if (isset($_POST['check'])) {
         // Khởi tạo Google Client
         $client = new Google_Client();
         $client->setApplicationName('Google Sheets API PHP');
-        $client->setScopes(Google_Service_Sheets::SPREADSHEETS_READONLY);
+        $client->setScopes(Google_Service_Sheets::SPREADSHEETS);
         $client->setAuthConfig('check-room-455408-fdb296f12ae3.json'); // Đường dẫn đến tệp JSON
         $client->setAccessType('offline');
 
@@ -31,7 +31,7 @@ if (isset($_POST['check'])) {
         $service = new Google_Service_Sheets($client);
 
         // Lấy dữ liệu từ bảng
-        $response = $service->spreadsheets_values->get(SHEET_ID, 'Data!B2:I');
+        $response = $service->spreadsheets_values->get(SHEET_ID, 'Data!B2:K');
         $result = $response->getValues();
 
         if ($result) {
@@ -59,6 +59,9 @@ if (isset($_POST['check'])) {
                     'room' => $row[5],
                     'restaurant' => $row[6],
                     'check_in' => $row[7],
+                    'represent' => $row[8],
+                    'hotline' => $row[9],
+                    'map' => null,
                 ];
 
             }
@@ -79,12 +82,6 @@ if (isset($_POST['check'])) {
                     $time_update = date('d/m/Y H:i:s');
 
                     // khởi tạo GG Sheets
-                    $client = new Google_Client();
-                    $client->setApplicationName('Google Sheets API PHP');
-                    $client->setScopes(Google_Service_Sheets::SPREADSHEETS);
-                    $client->setAuthConfig('check-room-455408-fdb296f12ae3.json');
-                    $client->setAccessType('offline');
-
                     $service = new Google_Service_Sheets($client);
 
                     // Dữ liệu bạn muốn cập nhật
@@ -95,7 +92,7 @@ if (isset($_POST['check'])) {
                     ];
 
                     // Phạm vi mà bạn muốn cập nhật
-                    $range = 'Data!H' . $order_check_in;
+                    $range = 'Data!I' . $order_check_in;
 
                     // Tạo đối tượng ValueRange
                     $body = new Google_Service_Sheets_ValueRange([
@@ -172,9 +169,29 @@ if (isset($_POST['check'])) {
                         break;
                 }
 
+                # [Timeline]
+                // Tạo đối tượng Google Sheets
+                $service = new Google_Service_Sheets($client);
+                // Lấy dữ liệu từ bảng
+                $response = $service->spreadsheets_values->get(SHEET_ID, 'Timeline'.$detail['type'].'!A2:C');
+                $script = $response->getValues();
+
+                # [Map]
+                // Tạo đối tượng Google Sheets
+                $service = new Google_Service_Sheets($client);
+                // Lấy dữ liệu từ bảng
+                $response = $service->spreadsheets_values->get(SHEET_ID, 'Area!A2:B');
+                $list_map = $response->getValues();
+
+                if(!empty($list_map)) {
+                    foreach ($list_map as $map) if(trim(mb_strtolower($detail['area'],'utf-8')) == trim(mb_strtolower($map[0],'utf-8'))) $detail['map'] = $map;
+                }
+
+
                 //data
                 $data = [
                     'detail' => $detail,
+                    'script' => $script,
                     'order_checked' => $order_checked,
                 ];
 
