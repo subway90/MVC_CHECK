@@ -16,7 +16,7 @@
         if (i < text.length) {
             paragraph.textContent += text.charAt(i);
             i++;
-            setTimeout(typeWriter, 50); // Chạy chữ với tốc độ 50ms/ký tự
+            setTimeout(typeWriter, 60); // Chạy chữ với tốc độ 50ms/ký tự
         }
     }
 
