@@ -1,7 +1,7 @@
 <div class="container d-flex justify-content-center align-items-center">
     <div class="col-12 px-3 px-md-5 py-5">
         <p class="display-1 text-white text-center">
-            Coming Soon...
+            Coming Soon !
         </p>
     </div>
 </div>
