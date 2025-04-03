@@ -138,6 +138,18 @@ function layout($type, $layout)
         die(_s_me_error . 'Trang layout <strong>' . $type . '/layout' . '/' . $layout . '.php</strong> mà bạn khai báo không được tìm thấy' . _e_me_error);
 }
 
+
+/**
+ * Dùng để sử dụng controller theo role [folder]
+ * @param mixed $type_of_role Folder
+ * @param mixed $name_controller Tên controller
+ * @return void
+ */
+function controller($type_of_role,$name_controller) {
+    if (file_exists('controllers/user/' . $name_controller . '.php')) require_once 'controllers/user/' . $name_controller . '.php';
+    else return view_error(404);
+}
+
 function alert($content)
 {
     echo '<script>alert("' . $content . '")</script>';
