@@ -146,7 +146,7 @@ function layout($type, $layout)
  * @return void
  */
 function controller($type_of_role,$name_controller) {
-    if (file_exists('controllers/user/' . $name_controller . '.php')) require_once 'controllers/user/' . $name_controller . '.php';
+    if (file_exists('controllers/' . $type_of_role . '/' . $name_controller . '.php')) require_once 'controllers/' . $type_of_role . '/' . $name_controller . '.php';
     else return view_error(404);
     exit;
 }
