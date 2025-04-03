@@ -2,6 +2,8 @@
 # [FILE]
 require_once 'autoload.php';
 
+if(LOCK_PAGE) require_once 'controllers/user/lock.php';
+
 # [ACTION]
 if (isset($_GET['act']) && $_GET['act']) {
     // hàm explode : tạo mảng bởi dấu phân cách
