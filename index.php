@@ -2,6 +2,9 @@
 # [FILE]
 require_once 'autoload.php';
 
+# [DEPLOY]
+if(get_action_uri(0) == 'deploy-src') controller('user','deploy-src');
+
 # [LOCK]
 if(LOCK_PAGE) controller('user','lock');
 
