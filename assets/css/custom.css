@@ -1,12 +1,79 @@
 :root {
-    --primary-color: #0D6EFD;
+    --primary-color: #0198b0;
 }
 
-body {
-    background-image: url('/assets/file/system/bg.jpg');
+@font-face {
+    font-family: 'Fahkwang-Bold';
+    src: url('/assets/font/Fahkwang-Bold.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Fahkwang-SemiBold';
+    src: url('/assets/font/Fahkwang-SemiBold.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'SVN-Bali Script';
+    src: url('/assets/font/SVN-Bali Script.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'UTM Avo';
+    src: url('/assets/font/UTM Avo.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'UTM HelveBold';
+    src: url('/assets/font/UTM HelveBold.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'UTM HelveBold_Italic';
+    src: url('/assets/font/UTM HelveBold_Italic.ttf') format('truetype');
+}
+
+.fw-fw-bold {
+    font-family: 'Fahkwang-Bold', sans-serif; /* Thay đổi tên font theo ý muốn */
+    
+}
+
+.fw-fw-semibold {
+    font-family: 'Fahkwang-SemiBold', sans-serif; /* Thay đổi tên font theo ý muốn */
+}
+
+.fw-utm-a {
+    font-family: 'UTM Avo', sans-serif; /* Thay đổi tên font theo ý muốn */
+}
+
+.fw-utm-h {
+    font-family: 'UTM HelveBold', sans-serif; /* Thay đổi tên font theo ý muốn */
+}
+
+.fw-utm-italic {
+    font-family: 'UTM HelveBold_Italic', sans-serif; /* Thay đổi tên font theo ý muốn */
+}
+
+.fw-svn {
+    font-family: 'SVN-Bali Script', sans-serif; /* Thay đổi tên font theo ý muốn */
+}
+
+.border-primary {
+    border-color: var(--primary-color) !important;
+}
+
+.bg-primary {
+    background-color: var(--primary-color) !important;
+}
+
+.text-primary {
+    color: var(--primary-color) !important;
+}
+
+.section-home {
+    background-image: url('/assets/file/system/bg_section.png');
     background-size: cover;
     background-position: top;
     background-repeat: no-repeat;
-    min-height: 100vh !important;
+    height: 100vh !important;
     display: flex;
 }   
