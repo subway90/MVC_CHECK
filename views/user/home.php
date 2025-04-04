@@ -7,7 +7,7 @@
                     <input name="phone" type="phone" class="form-control border-primary" id="phone" placeholder="">
                     <label class="fw-fw-bold text-muted" for="phone">Nhập số điện thoại</label>
                 </div>
-                <button name="check" type="submit" class="btn btn-primary bg-primary mt-2 w-100 fw-fw-bold fw-light text-uppercase">
+                <button name="check" type="submit" class="btn btn-primary border-primary bg-primary mt-2 w-100 fw-fw-bold fw-light text-uppercase">
                     <small>Kiểm tra</small>
                 </button>
             </form>
