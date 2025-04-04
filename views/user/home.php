@@ -4,8 +4,8 @@
             <h6 class="fw-fw-bold fw-bold my-3 text-primary text-uppercase">Kiểm tra thông tin phòng</h6>
             <form action="" method="post" class="form">
                 <div class="form-floating my-3">
-                    <input name="phone" type="phone" class="form-control" id="phone" placeholder="">
-                    <label for="phone">Nhập số điện thoại</label>
+                    <input name="phone" type="phone" class="form-control border-primary" id="phone" placeholder="">
+                    <label class="fw-fw-bold text-muted" for="phone">Nhập số điện thoại</label>
                 </div>
                 <button name="check" type="submit" class="btn btn-primary bg-primary mt-2 w-100 fw-fw-bold fw-light text-uppercase">
                     <small>Kiểm tra</small>
