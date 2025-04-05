@@ -104,3 +104,11 @@ body {
     background-color: var(--primary-color) !important;
     color: white !important;
 }
+
+.section-timeline {
+    background-image: url('/assets/file/system/bg_section.png');
+    background-size: cover;
+    background-position: top;
+    background-repeat: no-repeat;
+    height: 100vh !important;
+}
