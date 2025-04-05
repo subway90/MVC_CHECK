@@ -149,6 +149,25 @@ if (isset($_POST['check'])) {
                         $array_person_in_room[] = $row;
                 }
 
+                # [map area]
+                // Tạo đối tượng Google Sheets
+                $service = new Google_Service_Sheets($client);
+
+                // Lấy dữ liệu từ bảng
+                $response = $service->spreadsheets_values->get(SHEET_ID, 'Area!A2:B');
+                $list_area = $response->getValues();
+
+                
+                // validate
+                if(!empty($list_area)) {
+                    foreach ($list_area as $area) {
+                        if(isset($area[1]) && mb_strtolower($area[0],'utf-8') == mb_strtolower($detail['area'],'utf-8')) {
+                            $detail['map'] = $area[1];
+                            break;
+                        }
+                    }
+                }
+
                 # [data]
                 $data = [
                     'detail' => $detail,

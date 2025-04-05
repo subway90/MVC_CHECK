@@ -86,11 +86,17 @@
         </div>
     </div>
 
-    <div style="height: 500px" class="position-relative col-lg-7 col-12 card border-2 rounded-4 border-primary mt-5 p-3 pt-5">
+    <div class="position-relative col-lg-7 col-12 card border-2 rounded-4 border-primary mt-5 p-3 pt-5">
         <div class="position-absolute top-0 start-0 label-form bg-primary text-light text-uppercase fs-6 py-2 px-4 rounded-3">
             sơ đồ khu vực của bạn
         </div>
-        <iframe src="https://drive.google.com/file/d/13R6QRu_k5OlYN3RO7SksMuU8IMQ2ADrk/preview" height="100%" width="100%" allow="autoplay"></iframe>
+        <?php if($detail['map']) : ?>
+            <img src="<?= $detail['map'] ?>" alt="<?= $detail['map'] ?>" width="100%">
+        <?php else : ?>
+            <div class="small fst-italic text-center">
+                Sơ đồ khu vực của bạn hiện tại chưa có ảnh !
+            </div>
+        <?php endif ?>
     </div>
 
 </div>
