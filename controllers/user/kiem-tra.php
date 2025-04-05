@@ -55,10 +55,10 @@ if (isset($_POST['check'])) {
                     $phone_check = $_SESSION['data'][$i - 1]['phone_check']; // gán giá trị sđt của vị trí trước nó
 
                 // format thời gian check-in
-                if (isset($row[7]))
-                    $row[7] = DateTime::createFromFormat('d/m/Y H:i:s', $row[7]);
+                if (isset($row[9]))
+                    $row[9] = DateTime::createFromFormat('d/m/Y H:i:s', $row[9]);
                 else
-                    $row[7] = null;
+                    $row[9] = null;
 
                 $_SESSION['data'][] = [
                     'order' => $i + 2, // vị trí bắt đầu trong data sheet là dòng 2
@@ -69,9 +69,9 @@ if (isset($_POST['check'])) {
                     'area' => $row[4],
                     'room' => $row[5],
                     'restaurant' => $row[6],
-                    'check_in' => $row[7],
-                    'represent' => $row[8],
-                    'hotline' => $row[9],
+                    'represent' => $row[7],
+                    'hotline' => $row[8],
+                    'check_in' => $row[9],
                     'map' => null,
                     'timeline' => null,
                 ];
@@ -104,7 +104,7 @@ if (isset($_POST['check'])) {
                     ];
 
                     // Phạm vi mà bạn muốn cập nhật
-                    $range = 'Data!I' . $order_check_in;
+                    $range = 'Data!K' . $order_check_in;
 
                     // Tạo đối tượng ValueRange
                     $body = new Google_Service_Sheets_ValueRange([
