@@ -3,6 +3,24 @@
 # [MODEL]
 require 'vendor/autoload.php'; // Tải thư viện Google API
 
+// Khởi tạo Google Client
+$client = new Google_Client();
+$client->setApplicationName('Google Sheets API PHP');
+$client->setScopes(Google_Service_Sheets::SPREADSHEETS);
+$client->setAuthConfig('check-room-455408-fdb296f12ae3.json'); // Đường dẫn đến tệp JSON
+$client->setAccessType('offline');
+
+# [LOCK]
+// new
+$service = new Google_Service_Sheets($client);
+// get
+$response = $service->spreadsheets_values->get(SHEET_ID, 'Setting!A2:C2');
+$result = $response->getValues()[0];
+// handle
+if($result) {
+    if(strtotime(date('d/m/Y H:i:s'))  < strtotime($result[1])) view('user',null,'lock',null);
+}
+
 # [VARIABLE]
 $_SESSION['data'] = [];
 $return = [];
@@ -20,13 +38,6 @@ if (isset($_POST['check'])) {
 
     // Query
     else {
-        // Khởi tạo Google Client
-        $client = new Google_Client();
-        $client->setApplicationName('Google Sheets API PHP');
-        $client->setScopes(Google_Service_Sheets::SPREADSHEETS);
-        $client->setAuthConfig('check-room-455408-fdb296f12ae3.json'); // Đường dẫn đến tệp JSON
-        $client->setAccessType('offline');
-
         // Tạo đối tượng Google Sheets
         $service = new Google_Service_Sheets($client);
 
