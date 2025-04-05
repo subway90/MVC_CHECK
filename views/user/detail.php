@@ -28,56 +28,56 @@
             thông tin khách hàng
         </div>
 
-        <div class="d-flex align-item-center gap-3">
-            <div class="">
+        <div class="d-flex align-items-center justify-content-between">
+            <div class="small">
                 Họ tên :
             </div>
             <div class="">
                 <?= $detail['full_name'] ?>
             </div>
         </div>
-        <div class="d-flex align-item-center gap-3">
-            <div class="">
+        <div class="d-flex align-items-center justify-content-between">
+            <div class="small">
                 Số điện thoại :
             </div>
             <div class="">
                 <?= $detail['phone'] ?>
             </div>
         </div>
-        <div class="d-flex align-item-center gap-3">
-            <div class="">
+        <div class="d-flex align-items-center justify-content-between">
+            <div class="small">
                 Khu vực :
             </div>
             <div class="">
                 <?= $detail['area'] ?>
             </div>
         </div>
-        <div class="d-flex align-item-center gap-3">
-            <div class="">
+        <div class="d-flex align-items-center justify-content-between">
+            <div class="small">
                 Số phòng :
             </div>
             <div class="">
                 <?= $detail['room'] ?>
             </div>
         </div>
-        <div class="d-flex align-item-center gap-3">
-            <div class="">
+        <div class="d-flex align-items-center justify-content-between">
+            <div class="small">
                 Nhà hàng ăn trưa :
             </div>
             <div class="">
                 <?= $detail['restaurant'] ?>
             </div>
         </div>
-        <div class="d-flex align-item-center gap-3">
-            <div class="">
+        <div class="d-flex align-items-center justify-content-between">
+            <div class="small">
                 Đại diện liên hệ Casper :
             </div>
             <div class="">
                 <?= $detail['represent'] ?>
             </div>
         </div>
-        <div class="d-flex align-item-center gap-3">
-            <div class="">
+        <div class="d-flex align-items-center justify-content-between">
+            <div class="small">
                 Hotline hỗ trợ :
             </div>
             <div class="">

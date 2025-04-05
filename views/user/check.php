@@ -1,6 +1,6 @@
 <div class="section-home container-fluid">
     <div class="container d-flex justify-content-center align-items-center">
-        <div class="card col-12 col-md-10 col-lg-5 shadow px-3 px-md-5 py-5">
+        <div class="card col-12 col-md-10 col-lg-5 shadow px-3 px-md-5 py-5 rounded-4 border-1 border-primary">
             <h6 class="fw-fw-bold fw-bold my-3 text-primary text-uppercase">Kiểm tra thông tin phòng</h6>
             <form action="" method="post" class="form">
                 <div class="form-floating my-3">
