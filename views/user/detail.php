@@ -32,7 +32,7 @@
             <div class="small">
                 Họ tên :
             </div>
-            <div class="">
+            <div class="text-end">
                 <?= $detail['full_name'] ?>
             </div>
         </div>
@@ -40,7 +40,7 @@
             <div class="small">
                 Số điện thoại :
             </div>
-            <div class="">
+            <div class="text-end">
                 <?= $detail['phone'] ?>
             </div>
         </div>
@@ -48,7 +48,7 @@
             <div class="small">
                 Khu vực :
             </div>
-            <div class="">
+            <div class="text-end">
                 <?= $detail['area'] ?>
             </div>
         </div>
@@ -56,7 +56,7 @@
             <div class="small">
                 Số phòng :
             </div>
-            <div class="">
+            <div class="text-end">
                 <?= $detail['room'] ?>
             </div>
         </div>
@@ -64,7 +64,7 @@
             <div class="small">
                 Nhà hàng ăn trưa :
             </div>
-            <div class="">
+            <div class="text-end">
                 <?= $detail['restaurant'] ?>
             </div>
         </div>
@@ -72,7 +72,7 @@
             <div class="small">
                 Đại diện liên hệ Casper :
             </div>
-            <div class="">
+            <div class="text-end">
                 <?= $detail['represent'] ?>
             </div>
         </div>
@@ -80,7 +80,7 @@
             <div class="small">
                 Hotline hỗ trợ :
             </div>
-            <div class="">
+            <div class="text-end">
                 <?= $detail['hotline'] ?>
             </div>
         </div>
