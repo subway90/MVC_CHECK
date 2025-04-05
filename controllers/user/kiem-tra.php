@@ -149,54 +149,13 @@ if (isset($_POST['check'])) {
                         $array_person_in_room[] = $row;
                 }
 
-                // Sắp xếp vị trí theo thời gian tăng dần
-                usort($array_person_in_room, function ($a, $b) {
-                    if ($a['check_in'] === null && $b['check_in'] === null)
-                        return 0; // Nếu cả 2 trống
-                    if ($a['check_in'] === null)
-                        return 1; // Nếu a trống
-                    if ($b['check_in'] === null)
-                        return -1; // Nếu b trống
-                    return $a['check_in'] <=> $b['check_in']; // Cả 2 đều có dữ liệu, tự so sánh và swap
-                });
-
-                // Tìm vị trí trong mảng vừa sort
-                $order_checked = '';
-                foreach ($array_person_in_room as $i => $row) {
-                    if ($row['order'] == $detail['order'])
-                        $order_checked = 'Bạn là người thứ ' . ($i + 1) . ' / ' . count($array_person_in_room) . ' đã check in phòng ' . $detail['room'];
-                    if ($order_checked)
-                        break;
-                }
-
-                # [Timeline]
-                // Tạo đối tượng Google Sheets
-                $service = new Google_Service_Sheets($client);
-                // Lấy dữ liệu từ bảng
-                $response = $service->spreadsheets_values->get(SHEET_ID, 'Timeline'.$detail['type'].'!A2:C');
-                $script = $response->getValues();
-
-                # [Map]
-                // Tạo đối tượng Google Sheets
-                $service = new Google_Service_Sheets($client);
-                // Lấy dữ liệu từ bảng
-                $response = $service->spreadsheets_values->get(SHEET_ID, 'Area!A2:B');
-                $list_map = $response->getValues();
-
-                if(!empty($list_map)) {
-                    foreach ($list_map as $map) if(trim(mb_strtolower($detail['area'],'utf-8')) == trim(mb_strtolower($map[0],'utf-8'))) $detail['map'] = $map;
-                }
-
-
-                //data
+                # [data]
                 $data = [
                     'detail' => $detail,
-                    'script' => $script,
-                    'order_checked' => $order_checked,
                 ];
 
 
-                //render
+                # [render]
                 view('user', 'Chi tiết', 'detail', $data);
             }
 
@@ -212,19 +171,17 @@ if (isset($_POST['check'])) {
                 route();
             }
 
-            // Result
+            # [data]
             $data = [
                 'phone_check' => $phone,
                 'return' => $return,
             ];
 
-            // Render
+            # [render]
             view('user', 'Kết quả', 'result', $data);
-        } else
-            toast_create('danger', 'Hệ thống dữ liệu không tồn tại ! Liên hệ ADMIN để hỗ trợ !');
+
+        }else toast_create('danger', 'Hệ thống dữ liệu không tồn tại ! Liên hệ ADMIN để hỗ trợ !');
     }
-
-
 }
 
 # [RENDER]
