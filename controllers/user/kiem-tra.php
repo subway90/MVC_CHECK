@@ -62,6 +62,7 @@ if (isset($_POST['check'])) {
                     'represent' => $row[8],
                     'hotline' => $row[9],
                     'map' => null,
+                    'timeline' => null,
                 ];
 
             }
@@ -163,6 +164,24 @@ if (isset($_POST['check'])) {
                     foreach ($list_area as $area) {
                         if(isset($area[1]) && mb_strtolower($area[0],'utf-8') == mb_strtolower($detail['area'],'utf-8')) {
                             $detail['map'] = $area[1];
+                            break;
+                        }
+                    }
+                }
+
+                # [timeliine]
+                // Tạo đối tượng Google Sheets
+                $service = new Google_Service_Sheets($client);
+
+                // Lấy dữ liệu từ bảng
+                $response = $service->spreadsheets_values->get(SHEET_ID, 'Timeline!A2:B');
+                $list_timeline = $response->getValues();
+                
+                // validate
+                if(!empty($list_timeline)) {
+                    foreach ($list_timeline as $timeline) {
+                        if(isset($timeline[1]) && mb_strtolower($timeline[0],'utf-8') == mb_strtolower($detail['type'],'utf-8')) {
+                            $detail['timeline'] = $timeline[1];
                             break;
                         }
                     }
