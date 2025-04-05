@@ -1,4 +1,4 @@
-<div class="container d-flex justify-content-center align-items-center">
+<div class="container-fluid section-home d-flex justify-content-center align-items-center">
     <div class="card col-12 col-md-10 col-lg-4 shadow px-3 px-md-5 py-5">
         <h5 class="fw-bold mb-3 text-primary">Kết quả kiểm tra</h5>
         <div class="my-1">
@@ -21,7 +21,7 @@
                                     <input type="hidden" name="phone" value="<?= $phone_check ?>">
                                     <input type="hidden" name="detail" value="<?= $order ?>">
                                     <button type="submit" name="check"
-                                        class="btn btn-sm btn-outline-primary fw-semibold px-2 py-1">
+                                        class="btn btn-sm btn-outline-primary text-primary border-primary fw-semibold px-2 py-1">
                                         <small>Xem chi tiết</small>
                                     </button>
                                 </form>
@@ -31,7 +31,7 @@
                                 <form action="" method="post">
                                     <input type="hidden" name="phone" value="<?= $phone_check ?>">
                                     <input type="hidden" name="check_in" value="<?= $order ?>">
-                                    <button type="submit" name="check" class="btn btn-sm btn-primary fw-semibold px-2 py-1">
+                                    <button type="submit" name="check" class="btn btn-sm btn-primary bg-primary border-primary fw-semibold px-2 py-1">
                                         <small>Check-in ngay</small>
                                     </button>
                                 </form>
@@ -41,7 +41,7 @@
                 </div>
             <?php endforeach ?>
         </div>
-        <a href="/" class="btn btn-primary mt-3">
+        <a href="/" class="btn btn-primary bg-primary border-primary mt-3">
             Tiếp tục kiểm tra
         </a>
     </div>
