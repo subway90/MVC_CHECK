@@ -12,28 +12,27 @@ $client->setAccessType('offline');
 $service = new Google_Service_Sheets($client);
 
 # [VARIABLE]
-$_SESSION['data'] = [];
+$_SESSION['data'] = []; // lưu mảng dữ liệu từ bảng sheet Data
 $return = [];
 $bool_detail = false;
 
 # [HANDLE]
 if (isset($_POST['check'])) {
     // Input
-    if (isset($_POST['phone']))
-        $phone = clear_input($_POST['phone']);
+    if (isset($_POST['phone'])) $phone = clear_input($_POST['phone']);
 
     // Validate
-    if (!$phone)
-        toast_create('danger', 'Vui lòng nhập số điện thoại');
+    if (!$phone) toast_create('danger', 'Vui lòng nhập số điện thoại');
 
     // Query
     else {
-        // Lấy dữ liệu từ bảng
+        // Lấy dữ liệu từ bảng sheet, bao gồm : Data | Timeline | Area
         $response = $service->spreadsheets_values->batchGet(SHEET_ID, [
             'ranges' => ['Data!B2:K','Timeline!A2:B','Area!A2:B']
         ]);
         $data = $response->getValueRanges();
 
+        // Nếu dữ liệu bảng Data không trống
         if (!empty($data[0])) {
             // format lại data
             foreach ($data[0] as $i => $row) {
@@ -121,10 +120,8 @@ if (isset($_POST['check'])) {
             # [detail]
             if ($bool_detail || isset($_POST['detail']) && $_POST['detail']) {
                 // input
-                if ($bool_detail)
-                    $order = $bool_detail;
-                else
-                    $order = clear_input($_POST['detail']);
+                if ($bool_detail) $order = $bool_detail;
+                else $order = clear_input($_POST['detail']);
 
                 // format // giảm 2 đơn vị
                 $order -= 2;
@@ -138,10 +135,7 @@ if (isset($_POST['check'])) {
                 else $detail = $_SESSION['data'][$order];
 
                 // Lấy số người trong phòng của detail
-                foreach ($_SESSION['data'] as $row) {
-                    if ($row['room'] == $detail['room'])
-                        $array_person_in_room[] = $row;
-                }
+                foreach ($_SESSION['data'] as $row) if ($row['room'] == $detail['room']) $array_person_in_room[] = $row;
 
                 # [timeliine]
                 // validate
@@ -177,8 +171,7 @@ if (isset($_POST['check'])) {
 
             # [list]
             foreach ($_SESSION['data'] as $row) {
-                if ($phone == $row['phone_check'])
-                    $return[] = $row;
+                if ($phone == $row['phone_check']) $return[] = $row;
             }
 
             // empty
