@@ -55,7 +55,7 @@ if (isset($_POST['check'])) {
                     'phone_check' => $phone_check,
                     'full_name' => $row[1],
                     'type' => $row[2],
-                    'phone' => $row[3],
+                    'phone' => (isset($row[3]) && $row[3]) ? $row[3] : '<span class="text-muted fst-italic small">(trống)</span>',
                     'area' => $row[4],
                     'room' => $row[5],
                     'restaurant' => $row[6],
