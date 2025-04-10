@@ -7,14 +7,17 @@ require 'vendor/autoload.php'; // Tải thư viện Google API
 $client = new Google_Client();
 $client->setApplicationName('Google Sheets API PHP');
 $client->setScopes(Google_Service_Sheets::SPREADSHEETS);
-$client->setAuthConfig('check-room-455408-fdb296f12ae3.json'); // Đường dẫn đến tệp JSON
+$client->setAuthConfig(SHEET_JSON_FILE);
 $client->setAccessType('offline');
 $service = new Google_Service_Sheets($client);
-
 # [VARIABLE]
+if(!isset($_SESSION['sheet'])) $_SESSION['sheet'] = []; // khởi tạo session lưu data
 $_SESSION['data'] = []; // lưu mảng dữ liệu từ bảng sheet Data
 $return = [];
 $bool_detail = false;
+
+// unset($_SESSION['sheet']);
+// view_json(200,$_SESSION['sheet']['data']);
 
 # [HANDLE]
 if (isset($_POST['check'])) {
@@ -26,16 +29,23 @@ if (isset($_POST['check'])) {
 
     // Query
     else {
-        // Lấy dữ liệu từ bảng sheet, bao gồm : Data | Timeline | Area
-        $response = $service->spreadsheets_values->batchGet(SHEET_ID, [
-            'ranges' => ['Data!B2:K','Timeline!A2:B','Area!A2:B']
-        ]);
-        $data = $response->getValueRanges();
+        // Nếu trống session sheet
+        if(empty($_SESSION['sheet']['data'])) {
+            // Lấy dữ liệu từ bảng sheet, bao gồm : Data | Timeline | Area
+            $response = $service->spreadsheets_values->batchGet(SHEET_ID, [
+                'ranges' => ['Data!B2:K','Timeline!A2:B','Area!A2:B']
+            ]);
+            $_SESSION['sheet'] = [
+                'data' => $response->getValueRanges()[0]->getValues(),     // Dữ liệu từ bảng Data
+                'timeline' => $response->getValueRanges()[1]->getValues(), // Dữ liệu từ bảng Timeline
+                'area' => $response->getValueRanges()[2]->getValues()      // Dữ liệu từ bảng Area
+            ];
+        }
 
         // Nếu dữ liệu bảng Data không trống
-        if (!empty($data[0])) {
+        if (!empty($_SESSION['sheet']['data'])) {
             // format lại data
-            foreach ($data[0] as $i => $row) {
+            foreach ($_SESSION['sheet']['data'] as $i => $row) {
                 // Lấy SĐT Check
                 $phone_check = $row[0];
                 // Kiểm tra
@@ -119,6 +129,7 @@ if (isset($_POST['check'])) {
 
             # [detail]
             if ($bool_detail || isset($_POST['detail']) && $_POST['detail']) {
+                
                 // input
                 if ($bool_detail) $order = $bool_detail;
                 else $order = clear_input($_POST['detail']);
@@ -137,10 +148,10 @@ if (isset($_POST['check'])) {
                 // Lấy số người trong phòng của detail
                 foreach ($_SESSION['data'] as $row) if ($row['room'] == $detail['room']) $array_person_in_room[] = $row;
 
-                # [timeliine]
+                # [timeline]
                 // validate
-                if(!empty($data[1])) {
-                    foreach ($data[1] as $timeline) {
+                if(!empty($_SESSION['sheet']['timeline'])) {
+                    foreach ($_SESSION['sheet']['timeline'] as $timeline) {
                         if(isset($timeline[1]) && mb_strtolower($timeline[0],'utf-8') == mb_strtolower($detail['type'],'utf-8')) {
                             $detail['timeline'] = $timeline[1];
                             break;
@@ -148,10 +159,10 @@ if (isset($_POST['check'])) {
                     }
                 }
 
-                # [map area]
+                # [area]
                 // validate
-                if(!empty($data[2])) {
-                    foreach ($data[2] as $area) {
+                if(!empty($_SESSION['sheet']['area'])) {
+                    foreach ($_SESSION['sheet']['area'] as $area) {
                         if(isset($area[1]) && mb_strtolower($area[0],'utf-8') == mb_strtolower($detail['area'],'utf-8')) {
                             $detail['map'] = $area[1];
                             break;
@@ -164,6 +175,8 @@ if (isset($_POST['check'])) {
                     'detail' => $detail,
                 ];
 
+                # [clear temp data sheet]
+                $_SESSION['sheet'] = [];
 
                 # [render]
                 view('user', 'Chi tiết', 'detail', $data);
