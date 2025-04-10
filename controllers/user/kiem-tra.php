@@ -29,12 +29,14 @@ if (isset($_POST['check'])) {
     // Query
     else {
         // Lấy dữ liệu từ bảng
-        $response = $service->spreadsheets_values->get(SHEET_ID, 'Data!B2:K');
-        $result = $response->getValues();
+        $response = $service->spreadsheets_values->batchGet(SHEET_ID, [
+            'ranges' => ['Data!B2:K','Timeline!A2:B','Area!A2:B']
+        ]);
+        $data = $response->getValueRanges();
 
-        if ($result) {
+        if (!empty($data[0])) {
             // format lại data
-            foreach ($result as $i => $row) {
+            foreach ($data[0] as $i => $row) {
                 // Lấy SĐT Check
                 $phone_check = $row[0];
                 // Kiểm tra
@@ -133,8 +135,7 @@ if (isset($_POST['check'])) {
                     route();
                 }
                 // gán dữ liệu
-                else
-                    $detail = $_SESSION['data'][$order];
+                else $detail = $_SESSION['data'][$order];
 
                 // Lấy số người trong phòng của detail
                 foreach ($_SESSION['data'] as $row) {
@@ -142,32 +143,23 @@ if (isset($_POST['check'])) {
                         $array_person_in_room[] = $row;
                 }
 
-                # [map area]
-                // Lấy dữ liệu từ bảng
-                $response = $service->spreadsheets_values->get(SHEET_ID, 'Area!A2:B');
-                $list_area = $response->getValues();
-
-                
+                # [timeliine]
                 // validate
-                if(!empty($list_area)) {
-                    foreach ($list_area as $area) {
-                        if(isset($area[1]) && mb_strtolower($area[0],'utf-8') == mb_strtolower($detail['area'],'utf-8')) {
-                            $detail['map'] = $area[1];
+                if(!empty($data[1])) {
+                    foreach ($data[1] as $timeline) {
+                        if(isset($timeline[1]) && mb_strtolower($timeline[0],'utf-8') == mb_strtolower($detail['type'],'utf-8')) {
+                            $detail['timeline'] = $timeline[1];
                             break;
                         }
                     }
                 }
 
-                # [timeliine]
-                // Lấy dữ liệu từ bảng
-                $response = $service->spreadsheets_values->get(SHEET_ID, 'Timeline!A2:B');
-                $list_timeline = $response->getValues();
-                
+                # [map area]
                 // validate
-                if(!empty($list_timeline)) {
-                    foreach ($list_timeline as $timeline) {
-                        if(isset($timeline[1]) && mb_strtolower($timeline[0],'utf-8') == mb_strtolower($detail['type'],'utf-8')) {
-                            $detail['timeline'] = $timeline[1];
+                if(!empty($data[2])) {
+                    foreach ($data[2] as $area) {
+                        if(isset($area[1]) && mb_strtolower($area[0],'utf-8') == mb_strtolower($detail['area'],'utf-8')) {
+                            $detail['map'] = $area[1];
                             break;
                         }
                     }
