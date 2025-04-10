@@ -28,9 +28,6 @@ if (isset($_POST['check'])) {
 
     // Query
     else {
-        // Tạo đối tượng Google Sheets
-        $service = new Google_Service_Sheets($client);
-
         // Lấy dữ liệu từ bảng
         $response = $service->spreadsheets_values->get(SHEET_ID, 'Data!B2:K');
         $result = $response->getValues();
@@ -41,14 +38,11 @@ if (isset($_POST['check'])) {
                 // Lấy SĐT Check
                 $phone_check = $row[0];
                 // Kiểm tra
-                if (!$phone_check)
-                    $phone_check = $_SESSION['data'][$i - 1]['phone_check']; // gán giá trị sđt của vị trí trước nó
+                if (!$phone_check) $phone_check = $_SESSION['data'][$i - 1]['phone_check']; // gán giá trị sđt của vị trí trước nó
 
                 // format thời gian check-in
-                if (isset($row[9]))
-                    $row[9] = DateTime::createFromFormat('d/m/Y H:i:s', $row[9]);
-                else
-                    $row[9] = null;
+                if (isset($row[9]))  $row[9] = DateTime::createFromFormat('d/m/Y H:i:s', $row[9]);
+                else $row[9] = null;
 
                 $_SESSION['data'][] = [
                     'order' => $i + 2, // vị trí bắt đầu trong data sheet là dòng 2
@@ -60,7 +54,7 @@ if (isset($_POST['check'])) {
                     'room' => $row[5],
                     'restaurant' => $row[6],
                     'represent' => $row[7],
-                    'hotline' => $row[8],
+                    'hotline' => isset($row[8]) ? $row[8] : null,
                     'check_in' => $row[9],
                     'map' => null,
                     'timeline' => null,
@@ -82,9 +76,6 @@ if (isset($_POST['check'])) {
 
                     // tạo thời gian cập nhật
                     $time_update = date('d/m/Y H:i:s');
-
-                    // khởi tạo GG Sheets
-                    $service = new Google_Service_Sheets($client);
 
                     // Dữ liệu bạn muốn cập nhật
                     $values = [
@@ -152,9 +143,6 @@ if (isset($_POST['check'])) {
                 }
 
                 # [map area]
-                // Tạo đối tượng Google Sheets
-                $service = new Google_Service_Sheets($client);
-
                 // Lấy dữ liệu từ bảng
                 $response = $service->spreadsheets_values->get(SHEET_ID, 'Area!A2:B');
                 $list_area = $response->getValues();
@@ -171,9 +159,6 @@ if (isset($_POST['check'])) {
                 }
 
                 # [timeliine]
-                // Tạo đối tượng Google Sheets
-                $service = new Google_Service_Sheets($client);
-
                 // Lấy dữ liệu từ bảng
                 $response = $service->spreadsheets_values->get(SHEET_ID, 'Timeline!A2:B');
                 $list_timeline = $response->getValues();
